@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HeroAnim : MonoBehaviour
+public class HeroAnimation : MonoBehaviour
 {
     public Animator _animator;
     public Hero hero;

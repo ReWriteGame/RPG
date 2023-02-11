@@ -42,7 +42,7 @@ public class Hero : MonoBehaviour
     private void Update()
     {
         MoveLogic();
-        RotateLogic();
+        RotateLogic(camera.transform.eulerAngles.y);
         JumpAndGravityLogic();
     }
 
@@ -71,10 +71,9 @@ public class Hero : MonoBehaviour
         move.HorizontalMove(inputUserDirection, speed);
     }
 
-    private void RotateLogic()
+    private void RotateLogic(float viewDirection)
     {
-        float cameraViewDirections = camera.transform.eulerAngles.y;
-        move.RotateVector(inputUserDirection, RotationSmoothTime, cameraViewDirections);
+        move.RotateVector(inputUserDirection, RotationSmoothTime, camera.transform.eulerAngles.y);
     }
         
 
