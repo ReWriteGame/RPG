@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using TMPro;
 
 ////TODO: localization support
 
@@ -265,11 +264,19 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 m_RebindOperation = null;
             }
 
+            // Disable the action before use
+            action.Disable();
+
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
+                .WithControlsExcluding("<Mouse>/leftButton")
+                .WithControlsExcluding("<Mouse>/RightButton")
+                .WithControlsExcluding("<Mouse>/press")
+                .WithControlsExcluding("<Pointer>/position")
                 .OnCancel(
                     operation =>
                     {
+                        action.Enable();
                         m_RebindStopEvent?.Invoke(this, operation);
                         m_RebindOverlay?.SetActive(false);
                         UpdateBindingDisplay();
@@ -278,6 +285,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 .OnComplete(
                     operation =>
                     {
+                        action.Enable();
                         m_RebindOverlay?.SetActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
 
@@ -347,10 +355,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             // Check for dublicate composite binding
             if (allCompositeParts)
                 for (int i = 1; i < bindingIndex; i++)
-                    if(action.bindings[i].overridePath == newBinding.effectivePath)
+                    if (action.bindings[i].overridePath == newBinding.effectivePath)
                         return true;
-                
-            
+
+
             return false;
         }
 
@@ -451,7 +459,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         // We want the label for the action name to update in edit mode, too, so
         // we kick that off from here.
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         protected void OnValidate()
         {
             UpdateActionLabel();
