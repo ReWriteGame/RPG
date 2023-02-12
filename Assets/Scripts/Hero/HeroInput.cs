@@ -1,12 +1,12 @@
 using StarterAssets;
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class HeroInput : MonoBehaviour
 {
+    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Hero hero;
     [SerializeField] private UICanvasControllerInput ñanvasControllerInput;
 
@@ -16,17 +16,17 @@ public class HeroInput : MonoBehaviour
     private void Awake()
     {
         input = new UserInput();
-        input.Player.Jump.performed += Jump;
-        input.Player.Sprint.performed += Sprint;
-        input.Player.Move.performed += MoveInputDevices;
+        playerInput.actions[input.Player.Jump.name].performed += Jump;
+        playerInput.actions[input.Player.Sprint.name].performed += Sprint;
+        playerInput.actions[input.Player.Move.name].performed += MoveInputDevices;
         ñanvasControllerInput.OnVirtualMoveInput += hero.SetMove;
     }
 
     private void OnDestroy()
     {
-        input.Player.Jump.performed -= Jump;
-        input.Player.Sprint.performed -= Sprint;
-        input.Player.Move.performed -= MoveInputDevices;
+        playerInput.actions[input.Player.Jump.name].performed -= Jump;
+        playerInput.actions[input.Player.Sprint.name].performed -= Sprint;
+        playerInput.actions[input.Player.Move.name].performed -= MoveInputDevices;
         ñanvasControllerInput.OnVirtualMoveInput -= hero.SetMove;
     }
 
