@@ -16,17 +16,21 @@ public class HeroInput : MonoBehaviour
     private void Awake()
     {
         input = new UserInput();
-        playerInput.actions[input.Player.Jump.name].performed += Jump;
-        playerInput.actions[input.Player.Sprint.name].performed += Sprint;
-        playerInput.actions[input.Player.Move.name].performed += MoveInputDevices;
+        //playerInput.actions[input.Player.Jump.name].performed += Jump;
+        //playerInput.actions[input.Player.Sprint.name].performed += Sprint;
+        //playerInput.actions[input.Player.Move.name].performed += MoveInputDevices;
         if(ñanvasControllerInput != null) ñanvasControllerInput.OnVirtualMoveInput += hero.SetMove;
+
+        input.Player.Jump.performed += Jump;
+       input.Player.Sprint.performed += Sprint;
+        input.Player.Move.performed += MoveInputDevices;
     }
 
     private void OnDestroy()
     {
-        playerInput.actions[input.Player.Jump.name].performed -= Jump;
-        playerInput.actions[input.Player.Sprint.name].performed -= Sprint;
-        playerInput.actions[input.Player.Move.name].performed -= MoveInputDevices;
+        //playerInput.actions[input.Player.Jump.name].performed -= Jump;
+        //playerInput.actions[input.Player.Sprint.name].performed -= Sprint;
+        //playerInput.actions[input.Player.Move.name].performed -= MoveInputDevices;
         if (ñanvasControllerInput != null) ñanvasControllerInput.OnVirtualMoveInput -= hero.SetMove;
     }
 
