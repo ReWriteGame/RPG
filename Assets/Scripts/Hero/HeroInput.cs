@@ -19,7 +19,7 @@ public class HeroInput : MonoBehaviour
         playerInput.actions[input.Player.Jump.name].performed += Jump;
         playerInput.actions[input.Player.Sprint.name].performed += Sprint;
         playerInput.actions[input.Player.Move.name].performed += MoveInputDevices;
-        ñanvasControllerInput.OnVirtualMoveInput += hero.SetMove;
+        if(ñanvasControllerInput != null) ñanvasControllerInput.OnVirtualMoveInput += hero.SetMove;
     }
 
     private void OnDestroy()
@@ -27,7 +27,7 @@ public class HeroInput : MonoBehaviour
         playerInput.actions[input.Player.Jump.name].performed -= Jump;
         playerInput.actions[input.Player.Sprint.name].performed -= Sprint;
         playerInput.actions[input.Player.Move.name].performed -= MoveInputDevices;
-        ñanvasControllerInput.OnVirtualMoveInput -= hero.SetMove;
+        if (ñanvasControllerInput != null) ñanvasControllerInput.OnVirtualMoveInput -= hero.SetMove;
     }
 
     private void OnEnable()
